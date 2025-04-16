@@ -82,7 +82,7 @@ export class AppController {
 
   }
 
-  @Put()
+  @Put(':id')
   @HttpCode(204)
   update(@Body(updateProductBodySchema) body: updateProductBodySchema) {
     const { brand, dateManufacture, cpf, email, model, name, year } = body; 
