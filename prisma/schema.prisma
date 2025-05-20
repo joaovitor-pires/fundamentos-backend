@@ -8,22 +8,23 @@ datasource db {
 }
 
 enum Category {
-  electronic
-  food
-  fragile
+  ELETRONICS
+  FOOD
+  FRAGILE
+  HOME
 }
 
 model Product {
   id String @id @default(uuid())
   name String
-  description String
-  price Decimal
-  balance Decimal
-  available Boolean
+  description String?
+  price Float
+  balance Int @map("balance")
+  isAvailable Boolean @default(true) @map("is_available")
   category Category
   tags String[]
-  creationDate DateTime
-  updateDate DateTime
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
 
   @@map("products")
@@ -33,7 +34,7 @@ model User {
   id String @id @default(uuid())
   email String @unique
 
-  createdAt DateTime @default(now())@map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatetAt DateTime? @updatedAt @map("updated_at")
 
   @@map("users")
