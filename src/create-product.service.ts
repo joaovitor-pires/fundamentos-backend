@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "./prisma.service";
 
 interface Product {
     name: string,
@@ -26,7 +27,7 @@ type CreateProductServiceResponse = {
 
 @Injectable()
 export class CreateProductService{
-    constructor() {}
+    constructor(private prisma: PrismaService) {}
 
     async execute({
         brand,
@@ -37,6 +38,6 @@ export class CreateProductService{
         name,
         year
     }: CreateProductServiceRequest): Promise<CreateProductServiceResponse> {
-        return null;
+        return new Promise (() => {});
     }
 }

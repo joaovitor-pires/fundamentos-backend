@@ -24,12 +24,11 @@ type createProductBodySchema= z.infer<typeof createProductBodySchema>;
 
 @Controller()
 export class CreateProductController {
-    constructor() {}
+  constructor() {}
 
-    @Post()
-    @HttpCode(201)
-    async handle(@Body(bodyValidationPipe) body: createProductBodySchema) {
+  @Post()
+  @HttpCode(201)
+  async handle(@Body(bodyValidationPipe) body: createProductBodySchema) {
 
-    }
-
+  }
 }       
