@@ -1,24 +1,29 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "./prisma.service";
+import { ProductsRepository } from "./products.repository";
+import { Category } from "@prisma/client";
 
 interface Product {
-    name: string,
-    model: string,
-    dateManufacture: string,
-    year: string,
-    brand: string,
-    email: string,
-    cpf: string
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    balance: number;
+    isAvailable: Boolean;
+    category: Category;
+    tags: string[];
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 interface CreateProductServiceRequest {
-    name: string,
-    model: string,
-    dateManufacture: string,
-    year: string,
-    brand: string,
-    email: string,
-    cpf: string
+  name: string;
+  description?: string;
+  price: number;
+  balance: number;
+  isAvailable: boolean;
+  category: Category;
+  tags: string[];
 }
 
 type CreateProductServiceResponse = {
@@ -27,17 +32,34 @@ type CreateProductServiceResponse = {
 
 @Injectable()
 export class CreateProductService{
-    constructor(private prisma: PrismaService) {}
+    constructor(private ProductsRepository: ProductsRepository) {}
 
     async execute({
-        brand,
-        cpf,
-        dateManufacture,
-        email,
-        model,
         name,
-        year
+        description,
+        price,
+        balance,
+        isAvailable,
+        category,
+        tags,
     }: CreateProductServiceRequest): Promise<CreateProductServiceResponse> {
-        return new Promise (() => {});
+        const productWithSameName = await this.ProductsRepository.findByName(name);
+
+        if (productWithSameName) {
+            throw new Error("Product already exists")
+        }
+
+        const product = {
+            name,
+            description,
+            price,
+            balance,
+            isAvailable,
+            category,
+            tags,
+        }
+        await this.ProductsRepository.create(product);
+
+        return new Promise(() => product)
     }
 }

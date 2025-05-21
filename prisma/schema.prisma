@@ -16,7 +16,7 @@ enum Category {
 
 model Product {
   id String @id @default(uuid())
-  name String
+  name String @unique
   description String?
   price Float
   balance Int @map("balance")
