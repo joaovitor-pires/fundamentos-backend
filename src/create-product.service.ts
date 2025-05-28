@@ -3,17 +3,17 @@ import { PrismaService } from "./prisma.service";
 import { ProductsRepository } from "./products.repository";
 import { Category } from "@prisma/client";
 
-interface Product {
+export interface Product {
     id: string;
     name: string;
-    description: string;
+    description?: string;
     price: number;
     balance: number;
     isAvailable: Boolean;
     category: Category;
     tags: string[];
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string | Date | undefined;
+    updatedAt: string | Date | undefined | null;
 }
 
 interface CreateProductServiceRequest {
@@ -57,9 +57,23 @@ export class CreateProductService{
             isAvailable,
             category,
             tags,
-        }
-        await this.ProductsRepository.create(product);
+        };
 
-        return new Promise(() => product)
+        const newProduct = await this.ProductsRepository.create(product);
+
+        return {
+            product: {
+                id: newProduct.id?.toString() || "",
+                name,
+                description,
+                price,
+                balance,
+                isAvailable,
+                category,
+                tags,
+                createdAt: newProduct.createdAt,
+                updatedAt: newProduct.updatedAt
+            }
+        };
     }
 }

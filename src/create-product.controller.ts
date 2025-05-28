@@ -1,5 +1,4 @@
 import { Body, Controller, HttpCode, Post } from "@nestjs/common";
-import { isValidCPF } from "utils/is-valid-cpf";
 import { ZodValidationPipe } from "./pipes/zod-validation-pipe";
 import { z } from "zod";
 import { CreateProductService } from "./create-product.service";
@@ -19,7 +18,7 @@ const bodyValidationPipe = new ZodValidationPipe(createProductBodySchema);
 
 type createProductBodySchema= z.infer<typeof createProductBodySchema>;
 
-@Controller()
+@Controller('/products')
 export class CreateProductController {
   constructor(private createProduct: CreateProductService) {}
 
@@ -36,7 +35,7 @@ export class CreateProductController {
       tags,
     } = body;
 
-    await this.createProduct.execute({
+    const product = await this.createProduct.execute({
       name,
       description,
       price,
@@ -45,5 +44,9 @@ export class CreateProductController {
       category,
       tags,
     });
+
+    return {
+      product
+    }
   }
 }
