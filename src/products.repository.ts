@@ -31,4 +31,9 @@ export class ProductsRepository {
             data: product
         });
     }
+
+    async findManyRecent(): Promise<Prisma.ProductUncheckedCreateInput[]>; {
+        
+        return product
+    }
 }
