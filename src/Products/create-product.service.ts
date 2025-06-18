@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ProductsRepository } from "src/Products/products.repository";
 import { Category } from "@prisma/client";
+import { ModelsRepository } from "src/Models/models.repository";
 
 interface CreateProductServiceRequest {
   name: string;
@@ -10,11 +11,15 @@ interface CreateProductServiceRequest {
   isAvailable: boolean;
   category: Category;
   tags: string[];
+  modelId: string;
 }
 
 @Injectable()
 export class CreateProductService {
-  constructor(private productsRepository: ProductsRepository) {}
+  constructor(
+    private productsRepository: ProductsRepository,
+    private modelsRepository: ModelsRepository
+  ) {}
 
   async execute({
     name,
@@ -24,23 +29,30 @@ export class CreateProductService {
     isAvailable,
     category,
     tags,
+    modelId,
   }: CreateProductServiceRequest): Promise<void> {
     const productWithSameName = await this.productsRepository.findByName(name);
 
     if (productWithSameName) {
-      throw new Error("Product already exists");
+      throw new Error("Product with same name already exists.");
     }
 
-    const product = {
-      name,
+    const modelsWithSameId = await this.modelsRepository.findById(modelId);
+
+    if (!modelsWithSameId) {
+      throw new Error("Model with same id already does not exists.");
+    }
+
+    await this.productsRepository.create({
+      name, 
       description,
       price,
       inStock,
       isAvailable,
       category,
       tags,
-    };
-
-    await this.productsRepository.create(product);
+      models: {connect: {id: modelId}}
+    });
+    
   }
 }
