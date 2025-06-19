@@ -15,7 +15,11 @@ export class ModelsRepository {
   }
 
   async findManyRecent(): Promise<Prisma.ModelUncheckedCreateInput[] | null> {
-    return await this.prisma.model.findMany();
+    return await this.prisma.model.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
   }
 
   async findById(id: string): Promise<Prisma.ModelUncheckedCreateInput | null> {
