@@ -20,9 +20,9 @@ type EditProductBodySchema = z.infer<typeof editProductBodySchema>;
 
 @Controller('/products/:id')
 export class EditProductController {
-  constructor(private editProduct: EditProductService) {}
+  constructor(private editProductService: EditProductService) {}
 
-  @Put()
+  @Put(':id')
   @HttpCode(204)
   async handle(
     @Body(bodyValidationPipe) body: EditProductBodySchema,
@@ -38,7 +38,7 @@ export class EditProductController {
       tags,
     } = body;
 
-    await this.editProduct.execute({
+    await this.editProductService.execute({
       name,
       description,
       price,
