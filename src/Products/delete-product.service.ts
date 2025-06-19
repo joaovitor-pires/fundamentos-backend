@@ -11,13 +11,14 @@ export class DeleteProductService {
 
   async execute({
     id,
-  }: DeleteProductServiceRequest): Promise<void> {
+  }: DeleteProductServiceRequest): Promise<boolean> {
     const product = await this.productsRepository.findById(id);
 
     if (!product) {
-      throw new Error("Product not found");
+      return false
     }
 
     await this.productsRepository.delete(product);
+    return true
   }
 }
