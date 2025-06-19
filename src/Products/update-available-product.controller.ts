@@ -14,7 +14,7 @@ type UpdateAvailableProductBodySchema = z.infer<typeof updateAvailableProductBod
 
 @Controller('/products/available')
 export class UpdateAvailableProductController {
-  constructor(private updateAvailableProduct: UpdateAvailableProductService) {}
+  constructor(private service: UpdateAvailableProductService) {}
 
   @Patch()
   @HttpCode(204)
@@ -27,7 +27,7 @@ export class UpdateAvailableProductController {
     } = body;
 
     ids.map(async (id) => {
-      await this.updateAvailableProduct.execute({
+      await this.service.execute({
         id,
         isAvailable,
       });
