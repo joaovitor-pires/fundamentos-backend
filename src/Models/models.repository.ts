@@ -6,6 +6,14 @@ import { Prisma } from "@prisma/client";
 export class ModelsRepository {
   constructor(private prisma: PrismaService) {}
 
+  async findByName(name: string): Promise<Prisma.ModelUncheckedCreateInput | null> {
+    return await this.prisma.model.findUnique({
+      where: {
+        name,
+      },
+    });
+  }
+
   async findManyRecent(): Promise<Prisma.ModelUncheckedCreateInput[] | null> {
     return await this.prisma.model.findMany();
   }

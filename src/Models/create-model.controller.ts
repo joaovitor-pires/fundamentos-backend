@@ -13,7 +13,7 @@ type CreateModelBodySchema = z.infer<typeof createModelBodySchema>;
 
 @Controller('/models')
 export class CreateModelController {
-  constructor(private createModel: CreateModelService) {}
+  constructor(private service: CreateModelService) {}
 
   @Post()
   @HttpCode(201)
@@ -22,7 +22,7 @@ export class CreateModelController {
       name,
     } = body;
 
-    await this.createModel.execute({
+    await this.service.execute({
       name,
     });
   }
