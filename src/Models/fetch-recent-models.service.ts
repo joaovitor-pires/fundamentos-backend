@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ModelsRepository } from "src/Models/models.repository";
 
 export interface Model {
@@ -22,7 +22,7 @@ export class FetchRecentModelsService {
     const newModels: Model[] = [];
 
     if (!models) {
-      throw new Error("Models not found");
+      throw new NotFoundException("Models not found");
     }
 
     for (const model of models) {
