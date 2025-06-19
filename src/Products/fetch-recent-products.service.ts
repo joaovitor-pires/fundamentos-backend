@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ProductsRepository } from "src/Products/products.repository";
 import { Category } from "@prisma/client";
 
@@ -11,6 +11,7 @@ export interface Product {
   isAvailable: Boolean;
   category: Category;
   tags: string[];
+  modelId: string;
   createdAt: string | Date | undefined;
   updatedAt: string | Date | null | undefined;
 }
@@ -29,7 +30,7 @@ export class FetchRecentProductsService {
     const newProducts: Product[] = [];
 
     if (!products) {
-      throw new Error("Products not found");
+      throw new NotFoundException("Products not found");
     }
 
     for (const product of products) {
@@ -42,6 +43,7 @@ export class FetchRecentProductsService {
         isAvailable: !!product.isAvailable,
         category: product.category,
         tags: product.tags as string[],
+        modelId: product.id?.toString() || "",
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
       });

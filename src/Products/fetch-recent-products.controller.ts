@@ -1,13 +1,14 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, HttpCode } from "@nestjs/common";
 import { FetchRecentProductsService } from "src/Products/fetch-recent-products.service";
 
 @Controller('/products')
 export class FetchRecentProductsController {
-  constructor(private fetchRecentProducts: FetchRecentProductsService) {}
+  constructor(private fetchRecentProductsService: FetchRecentProductsService) {}
 
   @Get()
+  @HttpCode(200)
   async handle() {
-    const products = await this.fetchRecentProducts.execute();
+    const products = await this.fetchRecentProductsService.execute();
 
     return {
       products

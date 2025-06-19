@@ -1,13 +1,14 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, HttpCode, NotFoundException, Param } from "@nestjs/common";
 import { GetProductByIdService } from "src/Products/get-product-by-id.service";
 
 @Controller('/products/:id')
 export class GetProductByIdController {
-  constructor(private getProductById: GetProductByIdService) {}
+  constructor(private getProductByIdService: GetProductByIdService) {}
 
   @Get()
+  @HttpCode(200)
   async handle(@Param("id") id: string) {
-    const product = await this.getProductById.execute({
+    const product = await this.getProductByIdService.execute({
       id,
     });
 
