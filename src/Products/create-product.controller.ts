@@ -12,7 +12,7 @@ const createProductBodySchema = z.object({
   isAvailable: z.boolean(),
   category: z.enum([Category.ELECTRONICS, Category.OTHER]),
   tags: z.array(z.string()),
-  modelId: z.string(),
+  modelId: z.string().uuid(),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(createProductBodySchema);

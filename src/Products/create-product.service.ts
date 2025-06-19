@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { ProductsRepository } from "src/Products/products.repository";
 import { Category } from "@prisma/client";
 import { ModelsRepository } from "src/Models/models.repository";
@@ -34,13 +34,13 @@ export class CreateProductService {
     const productWithSameName = await this.productsRepository.findByName(name);
 
     if (productWithSameName) {
-      throw new Error("Product with same name already exists.");
+      throw new BadRequestException("Product with same name already exists.");
     }
 
     const modelsWithSameId = await this.modelsRepository.findById(modelId);
 
     if (!modelsWithSameId) {
-      throw new Error("Model with same id already does not exists.");
+      throw new BadRequestException("Model with same id already does not exists.");
     }
 
     await this.productsRepository.create({
