@@ -31,10 +31,14 @@ import { GetUserByIdService } from './Users/get-user-by-id.service';
 import { UsersRepository } from './Users/users.repository';
 import { FetchRecentUsersController } from './Users/fetch-recent-users.controller';
 import { FetchRecentUsersService } from './Users/fetch-recent-users.service';
+import { EditUserController } from './Users/edit-user.controller';
+import { EditUserService } from './Users/edit-user.service';
+import { DeleteUserController } from './Users/delete-user.controller';
+import { DeleteUserService } from './Users/delete-user.service';
 
 @Module({
   imports: [],
-  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController, CreateUserController, GetUserByIdController, FetchRecentUsersController],
-  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository, UsersRepository, CreateUserService, GetUserByIdService, FetchRecentUsersService],
+  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController, CreateUserController, GetUserByIdController, FetchRecentUsersController, EditUserController, DeleteUserController],
+  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository, UsersRepository, CreateUserService, GetUserByIdService, FetchRecentUsersService, EditUserService, DeleteUserService],
 })
 export class AppModule {}

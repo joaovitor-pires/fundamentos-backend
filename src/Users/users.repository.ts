@@ -6,6 +6,14 @@ import { Prisma } from "@prisma/client";
 export class UsersRepository {
     constructor(private prisma: PrismaService) {}
 
+    async delete(user: Prisma.UserUncheckedCreateInput): Promise<void> {
+        await this.prisma.user.delete({
+            where: {
+            id: user.id?.toString(),
+            },
+        });
+    }
+
     async save(data: Prisma.UserUncheckedUpdateInput): Promise<void> {
         await this.prisma.user.update({
             where: {
