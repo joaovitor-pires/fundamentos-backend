@@ -6,6 +6,14 @@ import { Prisma } from "@prisma/client";
 export class UsersRepository {
     constructor(private prisma: PrismaService) {}
 
+    async findManyRecent(): Promise<Prisma.UserUncheckedCreateInput[]> {
+        return await this.prisma.user.findMany({
+            orderBy: {
+            updatedAt: 'desc',
+            },
+        });
+    }
+
     async findById(id: string): Promise<Prisma.UserUncheckedCreateInput | null> {
         return this.prisma.user.findUnique({
             where: {

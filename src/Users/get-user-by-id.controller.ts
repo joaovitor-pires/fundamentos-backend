@@ -8,7 +8,7 @@ const paramsSchema = z.object({
 
 type ParamsSchema = z.infer<typeof paramsSchema>;
 
-@Controller('/users/:id/')
+@Controller('/users/:id')
 export class GetUserByIdController {
   constructor(private getUserByIdService: GetUserByIdService) {}
 
