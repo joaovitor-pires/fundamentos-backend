@@ -29,10 +29,12 @@ import { GetUserByIdController } from './Users/get-user-by-id.controller';
 import { CreateUserService } from './Users/create-user.service';
 import { GetUserByIdService } from './Users/get-user-by-id.service';
 import { UsersRepository } from './Users/users.repository';
+import { FetchRecentUsersController } from './Users/fetch-recent-users.controller';
+import { FetchRecentUsersService } from './Users/fetch-recent-users.service';
 
 @Module({
   imports: [],
-  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController, CreateUserController, GetUserByIdController],
-  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository, UsersRepository, CreateUserService, GetUserByIdService],
+  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController, CreateUserController, GetUserByIdController, FetchRecentUsersController],
+  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository, UsersRepository, CreateUserService, GetUserByIdService, FetchRecentUsersService],
 })
 export class AppModule {}
