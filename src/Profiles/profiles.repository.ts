@@ -6,6 +6,15 @@ import { Prisma } from "@prisma/client";
 export class ProfilesRepository {
     constructor(private prisma: PrismaService) {}
 
+    async findByIdWithUser(id: string) {
+        return await this.prisma.profile.findUnique({
+            where: { id },
+            include: {
+            user: true,
+            },
+        });
+    }
+
     async findByUserId(userId: string): Promise<Prisma.ProfileUncheckedCreateInput | null> {
         return await this.prisma.profile.findUnique({
             where: { userId },
