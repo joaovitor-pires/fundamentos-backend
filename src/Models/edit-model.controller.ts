@@ -13,9 +13,9 @@ type EditModelBodySchema = z.infer<typeof editModelBodySchema>;
 
 @Controller('/models/:id')
 export class EditModelController {
-  constructor(private editModel: EditModelService) {}
+  constructor(private editModelService: EditModelService) {}
 
-  @Put()
+  @Put(':id')
   @HttpCode(204)
   async handle(
     @Body(bodyValidationPipe) body: EditModelBodySchema,
@@ -25,7 +25,7 @@ export class EditModelController {
       name,
     } = body;
 
-    await this.editModel.execute({
+    await this.editModelService.execute({
       name,
       id,
     });
