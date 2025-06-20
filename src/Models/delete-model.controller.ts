@@ -1,14 +1,14 @@
-import { Controller, Delete, Get, HttpCode, Param } from "@nestjs/common";
+import { Controller, Delete, HttpCode, Param } from "@nestjs/common";
 import { DeleteModelService } from "src/Models/delete-model.service";
 
 @Controller('/models/:id')
 export class DeleteModelController {
-  constructor(private deleteModel: DeleteModelService) {}
+  constructor(private deleteModelService: DeleteModelService) {}
 
-  @Delete()
+  @Delete('id')
   @HttpCode(204)
   async handle(@Param("id") id: string) {
-    await this.deleteModel.execute({
+    await this.deleteModelService.execute({
       id,
     });
   }
