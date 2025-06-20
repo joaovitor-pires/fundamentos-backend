@@ -24,10 +24,15 @@ import { GetProductByIdService } from './Products/get-product-by-id.service';
 import { GetModelByIdService } from './Models/get-model-by-id.service';
 import { UpdateAvailableProductService } from './Products/update-available-product.service';
 import { ModelsRepository } from './Models/models.repository';
+import { CreateUserController } from './Users/create-user.controller';
+import { GetUserByIdController } from './Users/get-user-by-id.controller';
+import { CreateUserService } from './Users/create-user.service';
+import { GetUserByIdService } from './Users/get-user-by-id.service';
+import { UsersRepository } from './Users/users.repository';
 
 @Module({
   imports: [],
-  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController],
-  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository],
+  controllers: [CreateProductController, CreateModelController, DeleteModelController, DeleteProductController, EditModelController, EditProductController, FetchRecentModelsController, FetchRecentProductsController, GetProductByIdController, GetModelByIdController, UpdateAvailableProductController, CreateUserController, GetUserByIdController],
+  providers: [PrismaService, CreateProductService, CreateModelService, DeleteModelService, DeleteProductService, EditModelService, EditProductService, FetchRecentModelsService, FetchRecentProductsService, GetProductByIdService, GetModelByIdService, UpdateAvailableProductService, ProductsRepository, ModelsRepository, UsersRepository, CreateUserService, GetUserByIdService],
 })
 export class AppModule {}

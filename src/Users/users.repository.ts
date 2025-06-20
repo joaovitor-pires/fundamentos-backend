@@ -6,6 +6,14 @@ import { Prisma } from "@prisma/client";
 export class UsersRepository {
     constructor(private prisma: PrismaService) {}
 
+    async findById(id: string): Promise<Prisma.UserUncheckedCreateInput | null> {
+        return this.prisma.user.findUnique({
+            where: {
+            id,
+            },
+        });
+    }
+
     async findByEmail(email: string): Promise<Prisma.UserUncheckedCreateInput | null> {
         return this.prisma.user.findUnique({
             where: {
