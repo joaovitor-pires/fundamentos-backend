@@ -6,6 +6,21 @@ import { Prisma } from "@prisma/client";
 export class ProfilesRepository {
     constructor(private prisma: PrismaService) {}
 
+    async findById(id: string) {
+        return await this.prisma.profile.findUnique({
+            where: { id },
+        });
+    }
+
+    async save(data: Prisma.ProfileUncheckedUpdateInput): Promise<void> {
+        await this.prisma.profile.update({
+            where: {
+            id: data.id?.toString(),
+            },
+            data,
+        });
+    }
+
     async findByIdWithUser(id: string) {
         return await this.prisma.profile.findUnique({
             where: { id },
